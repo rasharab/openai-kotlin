@@ -47,4 +47,8 @@ internal class HttpTransport(private val httpClient: HttpClient) : HttpRequester
             throw OpenAIHttpException(throwable = e)
         }
     }
+
+    override fun close() {
+        httpClient.close()
+    }
 }

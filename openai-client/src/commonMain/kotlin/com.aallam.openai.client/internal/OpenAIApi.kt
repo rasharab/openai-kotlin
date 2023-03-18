@@ -9,6 +9,7 @@ import com.aallam.openai.client.internal.http.HttpRequester
  *
  * @param requester http transport layer
  */
+@OptIn(ExperimentalStdlibApi::class)
 internal class OpenAIApi(
     private val requester: HttpRequester
 ) : OpenAI,
@@ -21,4 +22,5 @@ internal class OpenAIApi(
     FineTunes by FineTunesApi(requester),
     Images by ImagesApi(requester),
     Chat by ChatApi(requester),
-    Audio by AudioApi(requester)
+    Audio by AudioApi(requester),
+    AutoCloseable by requester

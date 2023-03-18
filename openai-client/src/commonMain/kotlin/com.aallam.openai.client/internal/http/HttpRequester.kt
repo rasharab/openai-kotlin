@@ -9,7 +9,8 @@ import io.ktor.util.reflect.typeInfo
 /**
  * Http request performer.
  */
-internal interface HttpRequester {
+@OptIn(ExperimentalStdlibApi::class)
+internal interface HttpRequester: AutoCloseable {
 
     /**
      * Perform an HTTP request and get a result.
