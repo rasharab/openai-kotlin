@@ -1,5 +1,6 @@
 package com.aallam.openai.client.internal.http
 
+import com.aallam.openai.api.core.RequestOptions
 import com.aallam.openai.client.Closeable
 import io.ktor.client.*
 import io.ktor.client.request.*

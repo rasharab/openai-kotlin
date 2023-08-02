@@ -1,5 +1,6 @@
 package com.aallam.openai.client.internal.http
 
+import com.aallam.openai.api.core.RequestOptions
 import com.aallam.openai.api.exception.*
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -48,6 +49,7 @@ internal class HttpTransport(private val httpClient: HttpClient) : HttpRequester
         is ClientRequestException -> openAIAPIException(e)
         is ServerResponseException -> OpenAIServerException(e)
         is HttpRequestTimeoutException, is SocketTimeoutException, is ConnectTimeoutException -> OpenAITimeoutException(e)
+
         is IOException -> GenericIOException(e)
         else -> OpenAIHttpException(e)
     }
@@ -60,7 +62,7 @@ internal class HttpTransport(private val httpClient: HttpClient) : HttpRequester
         val response = exception.response
         val status = response.status.value
         val error = response.body<OpenAIError>()
-        return when(status) {
+        return when (status) {
             429 -> RateLimitException(status, error, exception)
             400, 404, 415 -> InvalidRequestException(status, error, exception)
             401 -> AuthenticationException(status, error, exception)

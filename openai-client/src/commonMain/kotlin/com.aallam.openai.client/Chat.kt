@@ -4,6 +4,7 @@ import com.aallam.openai.api.BetaOpenAI
 import com.aallam.openai.api.chat.ChatCompletion
 import com.aallam.openai.api.chat.ChatCompletionChunk
 import com.aallam.openai.api.chat.ChatCompletionRequest
+import com.aallam.openai.api.core.RequestOptions
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,11 +16,17 @@ public interface Chat {
      * Creates a completion for the chat message.
      */
     @BetaOpenAI
-    public suspend fun chatCompletion(request: ChatCompletionRequest): ChatCompletion
+    public suspend fun chatCompletion(
+        request: ChatCompletionRequest,
+        requestOptions: RequestOptions? = null,
+    ): ChatCompletion
 
     /**
      * Stream variant of [chatCompletion].
      */
     @BetaOpenAI
-    public fun chatCompletions(request: ChatCompletionRequest): Flow<ChatCompletionChunk>
+    public fun chatCompletions(
+        request: ChatCompletionRequest,
+        requestOptions: RequestOptions? = null,
+    ): Flow<ChatCompletionChunk>
 }
